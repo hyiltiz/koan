@@ -15,6 +15,20 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
+  #   :equilateral  if all sides are equal
+  #   :isosceles    if exactly 2 sides are equal
+  #   :scalene      if no sides are equal
+  if  a==b and b==c
+    :equilateral
+  else 
+    if a==b or a==c or b==c
+      :isosceles
+    else 
+      :scalene
+    end
+
+  end
+
 end
 
 # Error class used in part 2.  No need to change this code.
