@@ -18,6 +18,17 @@ def triangle(a, b, c)
   #   :equilateral  if all sides are equal
   #   :isosceles    if exactly 2 sides are equal
   #   :scalene      if no sides are equal
+
+  # lets handle exceptions first
+  if a <= 0 or b <= 0 or c <= 0
+    raise TriangleError, 'Some side is non-positive.'
+  end
+
+  if [a,b,c].inject(0, :+) - [a,b,c].max <= [a,b,c].max
+    raise TriangleError, 'Sides too small.'
+  end
+
+
   if  a==b and b==c
     :equilateral
   else 
