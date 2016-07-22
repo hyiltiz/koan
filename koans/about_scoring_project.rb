@@ -32,24 +32,22 @@ require 'byebug'
 
 def score(dice)
   # You need to write this method
-  if dice.size > 5
-    raise TooManyDiceToss, 'You said only up to 5 toss!'
-  end
+  #if dice.size > 5
+    #raise TooManyDiceToss, 'You said only up to 5 toss!'
+  #end
   while dice.size < 5
     dice.push(0)
   end
-  s = []
-  (1..6).each do |x| 
-    s << dice.find_all{ |item| item == x }.size
-  end
+  diceCount = []
+  (1..6).each {|n| diceCount  << dice.count(n) }
 
-  triple = (1..6).zip(s).map {|x,y| y>=3 ? x : 0}
-  out = 0
-  [1000,100,100,100,100,100].zip(triple).each {|x,y| out += x*y}
-  s = s.map {|x| x>=3 ? x-3 : x}
+  triple = (1..6).zip(diceCount).map {|n,c| c>=3 ? n : 0}
+  totalScore = 0
+  [1000,100,100,100,100,100].zip(triple).each {|scoreTable,tripleCount| totalScore += scoreTable*tripleCount}
+  diceCount = diceCount.map {|c| c>=3 ? c-3 : c}
 
-  [100,0,0,0,50,0].zip(s).each {|x,y| out += x*y}
-  return out
+  [100,0,0,0,50,0].zip(diceCount).each {|scoreTable,singleCount| totalScore += scoreTable*singleCount}
+  return totalScore
 
 end
 
