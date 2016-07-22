@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
+require 'byebug'
 
 # Greed is a dice game where you roll up to five dice to accumulate
 # points.  The following "score" function will be used to calculate the
@@ -31,6 +32,25 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  if dice.size > 5
+    raise TooManyDiceToss, 'You said only up to 5 toss!'
+  end
+  while dice.size < 5
+    dice.push(0)
+  end
+  s = []
+  (1..6).each do |x| 
+    s << dice.find_all{ |item| item == x }.size
+  end
+
+  triple = (1..6).zip(s).map {|x,y| y>=3?x:0}
+  out = 0
+  [1000,100,100,100,100,100].zip(triple).each {|x,y| out += x*y}
+  s = s.map {|x| x >= 3 ? x-3 : x}
+
+  [100,0,0,0,50,0].zip(s).each {|x,y| out += x*y}
+  return out
+
 end
 
 class AboutScoringProject < Neo::Koan
