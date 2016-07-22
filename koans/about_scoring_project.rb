@@ -43,10 +43,10 @@ def score(dice)
     s << dice.find_all{ |item| item == x }.size
   end
 
-  triple = (1..6).zip(s).map {|x,y| y>=3?x:0}
+  triple = (1..6).zip(s).map {|x,y| y>=3 ? x : 0}
   out = 0
   [1000,100,100,100,100,100].zip(triple).each {|x,y| out += x*y}
-  s = s.map {|x| x >= 3 ? x-3 : x}
+  s = s.map {|x| x>=3 ? x-3 : x}
 
   [100,0,0,0,50,0].zip(s).each {|x,y| out += x*y}
   return out
